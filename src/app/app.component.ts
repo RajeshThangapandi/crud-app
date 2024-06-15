@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
 
 
   getEmployeeList() {
-    fetch('http://localhost:5001/applicant')
+    fetch('https://appsail-50019927961.development.catalystappsail.in/applicant')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -139,7 +139,7 @@ export class AppComponent implements OnInit {
       error: console.log,
     });
 
-    fetch(`http://localhost:5001/applicant/${id}`, {
+    fetch(`https://appsail-50019927961.development.catalystappsail.in/applicant/${id}`, {
         method: 'DELETE'
     })
     .then(response => {

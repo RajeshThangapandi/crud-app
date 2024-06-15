@@ -50,7 +50,7 @@ export class EmpAddEditComponent implements OnInit {
     if (this.empForm.valid) {
       if (this.data) {
 console.log(this.data,this.empForm.value)
-    fetch(`http://localhost:5001/applicant/${this.empForm.value.id}`, {
+    fetch(`https://appsail-50019927961.development.catalystappsail.in/applicant/${this.empForm.value.id}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ console.log(this.data,this.empForm.value)
         if (this.empForm.valid) {
           
         
-          fetch("http://localhost:5001/applicant", {
+          fetch("https://appsail-50019927961.development.catalystappsail.in/applicant", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
