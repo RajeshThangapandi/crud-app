@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: angular-app
+    env: node
+    buildCommand: ng build --configuration production --base-href /myapp/
+    startCommand: npx serve -s dist/atsapp
+    envVars:
+      - key: PORT
+        value: 6060 # Render automatically sets the PORT, this is just a placeholder
