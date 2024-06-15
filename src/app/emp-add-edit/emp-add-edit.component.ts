@@ -46,11 +46,11 @@ export class EmpAddEditComponent implements OnInit {
     this.empForm.patchValue(this.data);
   }
 
-  onFormSubmit() {
+async  onFormSubmit() {
     if (this.empForm.valid) {
       if (this.data) {
 console.log(this.data,this.empForm.value)
-    fetch(`https://appsail-50019927961.development.catalystappsail.in/applicant/${this.empForm.value.id}`, {
+    fetch(`https://atsbackend-715n.onrender.com/applicant/${this.empForm.value.id}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json'
@@ -84,48 +84,21 @@ console.log(this.data,this.empForm.value)
 
       } else {
         if (this.empForm.valid) {
-          
-        
-          fetch("https://appsail-50019927961.development.catalystappsail.in/applicant", {
+          const res=await fetch("https://atsbackend-715n.onrender.com/applicant/", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.empForm.value),
-          }).then(response => {
-            if (!response.ok) {
+          })
+        
+            if (!res.ok) {
               throw new Error('Network response was not ok');
             }
-            return response.json();
-          })
-          .then(data => {
-            
-           console.log(data.email,this.empForm.value);
-            this._empService.addEmployee(this.empForm.value).subscribe({
-                  next: (val: any) => {
-                    this._coreService.openSnackBar('Employee added successfully');
-                    this._dialogRef.close(true);
-                  },
-                  error: (err: any) => {
-                    console.error(err);
-                  },
-                });
-            console.log('Success:', data);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-
-        this._empService.addEmployee(this.empForm.value).subscribe({
-          next: (val: any) => {
-        
             this._coreService.openSnackBar('Employee added successfully');
             this._dialogRef.close(true);
-          },
-          error: (err: any) => {
-            console.error(err);
-          },
-        });
+            return res.json();
+
       }
     }
   }

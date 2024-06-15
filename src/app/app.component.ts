@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
 
 
   getEmployeeList() {
-    fetch('https://appsail-50019927961.development.catalystappsail.in/applicant')
+    fetch('https://atsbackend-715n.onrender.com/applicant')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -64,10 +64,10 @@ export class AppComponent implements OnInit {
         return response.json();
     })
     .then(data => {
-      this._empService.getEmployeeList().subscribe();
       this.dataSource=this.dataSource = new MatTableDataSource(data);;
       this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+      
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
@@ -130,30 +130,22 @@ export class AppComponent implements OnInit {
 //     }
 //   }
 
-  deleteEmployee(id: number) {
-    this._empService.getEmployeeList().subscribe({
-      next: (res) => {
+  async deleteEmployee(id: number) {
+  
+   
+
+  const res= await fetch(`https://atsbackend-715n.onrender.com/applicant/${id}`, {
+        method: 'DELETE'
+    });
+        if (!res.ok) {
+          console.log("error came")
+            throw new Error(`HTTP error! Status: ${res.status}`);
+        }
         this._coreService.openSnackBar('Employee deleted!', 'done');
         this.getEmployeeList();
-      },
-      error: console.log,
-    });
-
-    fetch(`https://appsail-50019927961.development.catalystappsail.in/applicant/${id}`, {
-        method: 'DELETE'
-    })
-    .then(response => {
-     
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-        
-    });
-   
+        const data= await res.json();
+  
+    console.log(data);   
   }
 
   openEditForm(data: any) {

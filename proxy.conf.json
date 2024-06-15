@@ -1,0 +1,8 @@
+{
+  "/applicant": {
+    "target": "http://localhost:5001/applicant",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
